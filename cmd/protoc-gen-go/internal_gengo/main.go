@@ -245,8 +245,9 @@ func genEnum(g *protogen.GeneratedFile, f *fileInfo, e *enumInfo) {
 		leadingComments := appendDeprecationSuffix(value.Comments.Leading,
 			value.Desc.ParentFile(),
 			value.Desc.Options().(*descriptorpb.EnumValueOptions).GetDeprecated())
+		valueName := strings.TrimPrefix(value.GoIdent.GoName, e.GoIdent.GoName+"_")
 		g.P(leadingComments,
-			value.GoIdent, " ", e.GoIdent, " = ", value.Desc.Number(),
+			valueName, " ", e.GoIdent, " = ", value.Desc.Number(),
 			trailingComment(value.Comments.Trailing))
 	}
 	g.P(")")
